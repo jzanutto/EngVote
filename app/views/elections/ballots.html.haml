@@ -1,0 +1,9 @@
+%h2= "Ballots for: "+@election.name
+%h3=@election.ballots.size.to_s+" Ballots"
+%dl
+	- @election.ballots.each do |ballot|
+		%dt= ballot.created_at
+		- ballot.votes.each do |vote|
+			-if vote.result && vote.choice
+				%dd= vote.choice.text+" : "+vote.result.to_s
+

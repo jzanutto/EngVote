@@ -1,0 +1,5 @@
+EngVote
+- if ["admin", "results", "ballots", "new", "edit"].include?(action_name.to_s)
+	=" : "+"Admin"+" : "+action_name.capitalize
+- if @election && @election.name
+	=" : "+@election.name

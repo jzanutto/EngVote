@@ -1,0 +1,38 @@
+!!! Strict
+
+%html(xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en")
+
+%p.notice
+  = notice
+
+%p.alert
+  = alert
+
+%head
+  %meta(http-equiv="content-type" content="text/html;charset=UTF-8")
+
+  %title= render :partial => "partials/title"
+
+  = stylesheet_link_tag 'screen.css'
+  = javascript_include_tag 'application'
+
+  - if controller.action_name == "vote"
+    %script(type="text/javascript")
+      Event.observe(window, 'load', vote_system);
+
+%body(class="#{controller.action_name}")
+  %p(style="color: green")= flash[:notice]
+
+  %h1= link_to "EngVote", "/", :title => 'Back to Home Screen'
+
+  %ul#menu
+    %li= link_to "Home", "/"
+    %li= link_to "Help", :controller => "elections", :action => 'help'
+    -if current_voter
+      %li= link_to "Sign Out", voter_session_path, :method => :delete
+
+  %div#content
+    = yield
+    %br(style="clear: both")
+  - if Rails.env.to_s == "development"
+    =debug(current_voter)

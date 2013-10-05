@@ -1,0 +1,19 @@
+%h2 Admin
+
+=link_to "New Election", {:action => 'new'}, :class => 'new'
+
+%h2 Active Elections
+
+%ul.elections
+	- @elections.each do |election|
+		-if election.active?
+			%li= render :partial => 'partials/election', :locals => {:election => election}
+
+%br{:clear => 'both'}
+
+%h2 Inactive Elections
+
+%ul.elections
+	- @elections.each do |election|
+		-unless election.active?
+			%li= render :partial => 'partials/election', :locals => {:election => election}
